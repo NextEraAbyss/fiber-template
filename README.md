@@ -20,7 +20,7 @@
 ### 前提条件
 
 - Go 1.16 或更高版本
-- PostgreSQL 数据库
+- MySQL 8.0 或更高版本
 
 ### 安装
 
@@ -173,9 +173,9 @@ API 文档位于 `docs/api/` 目录，包含以下内容：
 | APP_ENV | 运行环境 | development |
 | PORT | 服务端口 | 3000 |
 | DB_HOST | 数据库主机 | localhost |
-| DB_PORT | 数据库端口 | 5432 |
-| DB_USER | 数据库用户 | postgres |
-| DB_PASSWORD | 数据库密码 | postgres |
+| DB_PORT | 数据库端口 | 3306 |
+| DB_USER | 数据库用户 | root |
+| DB_PASSWORD | 数据库密码 | root |
 | DB_NAME | 数据库名称 | fiber_template |
 | JWT_SECRET | JWT 密钥 | your_jwt_secret_key |
 
