@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/NextEraAbyss/fiber-template/app/controller"
 	"github.com/NextEraAbyss/fiber-template/app/middleware"
 	"github.com/gofiber/fiber/v2"
 )
@@ -9,6 +10,10 @@ import (
 func SetupRoutes(app *fiber.App) {
 	// 配置静态资源
 	app.Static("/public", "./app/public")
+
+	// 设置全局中间件
+	middleware.SetupSecurity(app)
+	middleware.SetupLogger(app)
 
 	// API 分组
 	api := app.Group("/api")
@@ -23,27 +28,15 @@ func SetupRoutes(app *fiber.App) {
 	// v1 版本分组
 	v1 := api.Group("/v1")
 
-	// 设置各个模块的路由
-	SetupAuthRoutes(v1)
-	SetupUserRoutes(v1)
+	// 初始化控制器
+	userController := controller.NewUserController()
 
-	// 设置中间件
-	middleware.SetupSecurity(app)
-	middleware.SetupLogger(app)
-}
+	// 用户路由 - 需要认证
+	// users := v1.Group("/users", middleware.Protected())
+	// user.Get("/", userController.GetUsers)    // 获取用户列表
+	// user.Get("/:id", userController.GetUser) // 获取单个用户
 
-// SetupUserRoutes 设置用户相关路由
-func SetupUserRoutes(router fiber.Router) {
-	// 用户路由组 - 需要认证
-	// 当添加用户控制器后取消注释
-	/*
-		userRoutes := router.Group("/users", middleware.Protected())
-
-		// 这里添加用户相关路由
-		// userRoutes.Get("/", userController.GetUsers)
-		// userRoutes.Get("/:id", userController.GetUser)
-		// userRoutes.Post("/", userController.CreateUser)
-		// userRoutes.Put("/:id", userController.UpdateUser)
-		// userRoutes.Delete("/:id", userController.DeleteUser)
-	*/
+	// 用户路由
+	v1.Get("/users", userController.GetUsers)    // 获取用户列表
+	v1.Get("/users/:id", userController.GetUser) // 获取单个用户
 }

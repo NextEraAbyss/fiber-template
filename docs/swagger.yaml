@@ -1,45 +1,4 @@
 basePath: /api/v1
-definitions:
-  model.User:
-    description: 用户信息模型
-    properties:
-      avatar:
-        example: https://example.com/avatar.jpg
-        type: string
-      created_at:
-        example: "2024-01-01T00:00:00Z"
-        type: string
-      email:
-        example: john@example.com
-        type: string
-      id:
-        example: 1
-        type: integer
-      is_active:
-        example: true
-        type: boolean
-      last_login:
-        example: "2024-01-01T00:00:00Z"
-        type: string
-      role:
-        enum:
-        - user
-        - admin
-        example: user
-        type: string
-      updated_at:
-        example: "2024-01-01T00:00:00Z"
-        type: string
-      username:
-        example: john_doe
-        maxLength: 32
-        minLength: 3
-        type: string
-    required:
-    - email
-    - role
-    - username
-    type: object
 host: localhost:3000
 info:
   contact:
@@ -75,65 +34,7 @@ paths:
       summary: 获取所有用户
       tags:
       - 用户管理
-    post:
-      consumes:
-      - application/json
-      description: 创建一个新用户
-      parameters:
-      - description: 用户信息
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: 创建成功的响应
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: 请求体错误
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: 服务器错误
-          schema:
-            additionalProperties: true
-            type: object
-      summary: 创建用户
-      tags:
-      - 用户管理
   /users/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: 通过ID删除特定用户
-      parameters:
-      - description: 用户ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 删除成功的响应
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: 服务器错误
-          schema:
-            additionalProperties: true
-            type: object
-      summary: 删除用户
-      tags:
-      - 用户管理
     get:
       consumes:
       - application/json
@@ -158,43 +59,6 @@ paths:
             additionalProperties: true
             type: object
       summary: 获取单个用户
-      tags:
-      - 用户管理
-    put:
-      consumes:
-      - application/json
-      description: 通过ID更新特定用户的信息
-      parameters:
-      - description: 用户ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: 用户信息
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 更新成功的响应
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: 请求体错误
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: 服务器错误
-          schema:
-            additionalProperties: true
-            type: object
-      summary: 更新用户
       tags:
       - 用户管理
 schemes:
