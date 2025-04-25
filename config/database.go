@@ -15,12 +15,12 @@ var DB *gorm.DB
 func InitDB(config *Config) {
 	// MySQL连接字符串格式: username:password@tcp(host:port)/dbname?charset=utf8mb4&parseTime=True&loc=Local
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		config.DBUser, config.DBPassword, config.DBHost, config.DBPort, config.DBName)
+		config.Database.User, config.Database.Password, config.Database.Host, config.Database.Port, config.Database.Name)
 
 	var err error
 	// 根据环境配置日志级别
 	logLevel := logger.Silent
-	if config.Env == "development" {
+	if config.App.Env == "development" {
 		logLevel = logger.Info
 	}
 

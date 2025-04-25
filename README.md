@@ -23,15 +23,54 @@
 fiber-template/
 ├── app/
 │   ├── controller/     # 处理 HTTP 请求和响应
+│   │   ├── auth_controller.go    # 认证相关控制器
+│   │   └── user_controller.go    # 用户相关控制器
 │   ├── middleware/     # 自定义中间件函数
+│   │   ├── auth.go              # 认证中间件
+│   │   ├── cors.go              # CORS 中间件
+│   │   ├── logger.go            # 日志中间件
+│   │   └── validation.go        # 请求验证中间件
 │   ├── model/          # 数据模型和数据库架构
+│   │   ├── base.go              # 基础模型
+│   │   └── user.go              # 用户模型
 │   ├── router/         # 路由定义
+│   │   ├── v1/                 # API v1 版本路由
+│   │   │   ├── auth.go         # 认证路由
+│   │   │   └── user.go         # 用户路由
+│   │   └── router.go           # 路由注册
 │   ├── schedule/       # 定时任务
+│   │   ├── loader.go           # 任务加载器
+│   │   └── tasks/              # 具体任务实现
 │   └── service/        # 业务逻辑
+│       ├── auth_service.go     # 认证服务
+│       └── user_service.go     # 用户服务
 ├── config/             # 配置文件
+│   ├── config.go              # 配置结构定义
+│   ├── database.go            # 数据库配置
+│   ├── jwt.go                 # JWT 配置
+│   └── response.go            # 响应处理
+├── utils/              # 工具函数
+│   ├── password.go            # 密码处理
+│   ├── validator.go           # 数据验证
+│   └── sanitizer.go           # 数据清理
+├── .env                # 环境变量配置
+├── .env.example        # 环境变量示例
+├── go.mod              # Go 模块定义
+├── go.sum              # Go 依赖版本锁定
 ├── main.go             # 应用程序入口
 └── README.md           # 项目文档
 ```
+
+每个目录的主要职责：
+
+- `app/controller/`: 处理 HTTP 请求，调用相应的服务层方法，返回响应
+- `app/middleware/`: 提供请求预处理和后处理功能，如认证、日志记录等
+- `app/model/`: 定义数据模型和数据库结构，包含字段验证规则
+- `app/router/`: 定义 API 路由，支持版本控制
+- `app/schedule/`: 实现定时任务系统，支持 cron 表达式
+- `app/service/`: 实现核心业务逻辑，处理数据操作
+- `config/`: 管理应用配置，包括数据库、JWT、响应格式等
+- `utils/`: 提供通用工具函数，如密码加密、数据验证等
 
 ## 快速开始
 

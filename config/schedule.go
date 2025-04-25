@@ -1,4 +1,4 @@
-package schedule
+package config
 
 import "log"
 
@@ -20,7 +20,7 @@ func InitTasks() error {
 
 	// 添加任务
 	// 在这里注册您的定时任务
-	scheduleTasks = append(scheduleTasks, NewUpdateStatistics())
+	// scheduleTasks = append(scheduleTasks, NewUpdateStatistics())
 
 	// 这里可以添加更多任务
 	// 例如: scheduleTasks = append(scheduleTasks, NewYourTask())

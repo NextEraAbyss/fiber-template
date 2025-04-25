@@ -33,7 +33,7 @@ func GenerateToken(userID uint, email string, config *Config) (string, error) {
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			NotBefore: jwt.NewNumericDate(time.Now()),
-			Issuer:    config.AppName,
+			Issuer:    config.App.Name,
 			Subject:   email,
 		},
 	}
@@ -42,7 +42,7 @@ func GenerateToken(userID uint, email string, config *Config) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	// 签名令牌
-	tokenString, err := token.SignedString([]byte(config.JWTSecret))
+	tokenString, err := token.SignedString([]byte(config.JWT.Secret))
 	if err != nil {
 		return "", err
 	}
@@ -58,7 +58,7 @@ func ValidateToken(tokenString string, config *Config) (*JWTClaims, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("无效的签名方法")
 		}
-		return []byte(config.JWTSecret), nil
+		return []byte(config.JWT.Secret), nil
 	})
 
 	// 处理解析错误

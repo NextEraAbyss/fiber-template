@@ -2,7 +2,6 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/yourusername/fiber-template/app/controller"
 	"github.com/yourusername/fiber-template/app/middleware"
 )
 
@@ -24,16 +23,27 @@ func SetupRoutes(app *fiber.App) {
 	// v1 版本分组
 	v1 := api.Group("/v1")
 
-	// 认证路由
-	auth := v1.Group("/auth")
-	auth.Post("/login", controller.Login)
-	auth.Post("/register", controller.Register)
+	// 设置各个模块的路由
+	SetupAuthRoutes(v1)
+	SetupUserRoutes(v1)
 
-	// 用户路由 - 需要认证
-	userRoutes := v1.Group("/users")
-	userRoutes.Get("/", controller.GetUsers)
-	userRoutes.Get("/:id", controller.GetUser)
-	userRoutes.Post("/", controller.CreateUser, middleware.AuthRequired())
-	userRoutes.Put("/:id", controller.UpdateUser, middleware.AuthRequired())
-	userRoutes.Delete("/:id", controller.DeleteUser, middleware.AuthRequired())
+	// 设置中间件
+	middleware.SetupSecurity(app)
+	middleware.SetupLogger(app)
+}
+
+// SetupUserRoutes 设置用户相关路由
+func SetupUserRoutes(router fiber.Router) {
+	// 用户路由组 - 需要认证
+	// 当添加用户控制器后取消注释
+	/*
+		userRoutes := router.Group("/users", middleware.Protected())
+
+		// 这里添加用户相关路由
+		// userRoutes.Get("/", userController.GetUsers)
+		// userRoutes.Get("/:id", userController.GetUser)
+		// userRoutes.Post("/", userController.CreateUser)
+		// userRoutes.Put("/:id", userController.UpdateUser)
+		// userRoutes.Delete("/:id", userController.DeleteUser)
+	*/
 }
