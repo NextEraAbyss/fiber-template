@@ -3,7 +3,7 @@ package model
 import (
 	"time"
 
-	"github.com/yourusername/fiber-template/config"
+	"github.com/NextEraAbyss/fiber-template/config"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )

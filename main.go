@@ -3,15 +3,15 @@ package main
 import (
 	"log"
 
+	"github.com/NextEraAbyss/fiber-template/app/model"
+	"github.com/NextEraAbyss/fiber-template/app/router"
+	"github.com/NextEraAbyss/fiber-template/config"
+	_ "github.com/NextEraAbyss/fiber-template/docs" // 使用正确的模块名
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	fiberSwagger "github.com/swaggo/fiber-swagger"
-	"github.com/yourusername/fiber-template/app/model"
-	"github.com/yourusername/fiber-template/app/router"
-	"github.com/yourusername/fiber-template/config"
-	_ "github.com/yourusername/fiber-template/docs" // 使用正确的模块名
 )
 
 //	@title			Fiber Template API

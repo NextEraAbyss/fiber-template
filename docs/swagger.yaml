@@ -1,31 +1,11 @@
 basePath: /api/v1
 definitions:
-  controller.LoginRequest:
-    description: 用户登录请求
-    properties:
-      email:
-        example: user@example.com
-        type: string
-      password:
-        example: password123
-        type: string
-    type: object
-  controller.RegisterRequest:
-    description: 用户注册请求
-    properties:
-      email:
-        example: user@example.com
-        type: string
-      password:
-        example: password123
-        type: string
-      username:
-        example: john_doe
-        type: string
-    type: object
   model.User:
     description: 用户信息模型
     properties:
+      avatar:
+        example: https://example.com/avatar.jpg
+        type: string
       created_at:
         example: "2024-01-01T00:00:00Z"
         type: string
@@ -35,12 +15,30 @@ definitions:
       id:
         example: 1
         type: integer
+      is_active:
+        example: true
+        type: boolean
+      last_login:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      role:
+        enum:
+        - user
+        - admin
+        example: user
+        type: string
       updated_at:
         example: "2024-01-01T00:00:00Z"
         type: string
       username:
         example: john_doe
+        maxLength: 32
+        minLength: 3
         type: string
+    required:
+    - email
+    - role
+    - username
     type: object
 host: localhost:3000
 info:
@@ -56,77 +54,6 @@ info:
   title: Fiber Template API
   version: "1.0"
 paths:
-  /auth/login:
-    post:
-      consumes:
-      - application/json
-      description: 用户登录并获取JWT令牌
-      parameters:
-      - description: 登录信息
-        in: body
-        name: loginRequest
-        required: true
-        schema:
-          $ref: '#/definitions/controller.LoginRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 登录成功响应，包含令牌
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: 请求体错误
-          schema:
-            additionalProperties: true
-            type: object
-        "401":
-          description: 认证失败
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: 服务器错误
-          schema:
-            additionalProperties: true
-            type: object
-      summary: 用户登录
-      tags:
-      - 认证
-  /auth/register:
-    post:
-      consumes:
-      - application/json
-      description: 创建新用户并获取JWT令牌
-      parameters:
-      - description: 注册信息
-        in: body
-        name: registerRequest
-        required: true
-        schema:
-          $ref: '#/definitions/controller.RegisterRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: 注册成功响应，包含令牌
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: 请求体错误或邮箱已被注册
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: 服务器错误
-          schema:
-            additionalProperties: true
-            type: object
-      summary: 用户注册
-      tags:
-      - 认证
   /users:
     get:
       consumes:

@@ -3,10 +3,10 @@ package controller
 import (
 	"time"
 
+	"github.com/NextEraAbyss/fiber-template/app/middleware"
+	"github.com/NextEraAbyss/fiber-template/app/model"
+	"github.com/NextEraAbyss/fiber-template/config"
 	"github.com/gofiber/fiber/v2"
-	"github.com/yourusername/fiber-template/app/middleware"
-	"github.com/yourusername/fiber-template/app/model"
-	"github.com/yourusername/fiber-template/config"
 	"gorm.io/gorm"
 )
 

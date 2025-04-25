@@ -5,7 +5,7 @@
 
 # 环境变量
 APP_NAME = fiber-template
-BUILD_DIR = ./build
+BUILD_DIR = build
 MAIN_FILE = main.go
 PORT = 3000
 
@@ -13,32 +13,38 @@ PORT = 3000
 ifeq ($(OS),Windows_NT)
 	RM = if exist $(BUILD_DIR) rd /s /q $(BUILD_DIR)
 	MKDIR = if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+	GO = go
+	SEP = \\
+	EXE = .exe
 else
 	RM = rm -rf $(BUILD_DIR)
 	MKDIR = mkdir -p $(BUILD_DIR)
+	GO = go
+	SEP = /
+	EXE = 
 endif
 
 # 构建应用
 build:
 	@echo "Building $(APP_NAME)..."
 	@$(MKDIR)
-	@go build -o $(BUILD_DIR)/$(APP_NAME) $(MAIN_FILE)
+	@$(GO) build -o $(BUILD_DIR)$(SEP)$(APP_NAME)$(EXE) $(MAIN_FILE)
 	@echo "Build completed"
 
 # 运行应用
 run:
 	@echo "Running $(APP_NAME)..."
-	@go run $(MAIN_FILE)
+	@$(GO) run $(MAIN_FILE)
 
 # 开发模式运行
 dev:
 	@echo "Running in development mode..."
-	@go run $(MAIN_FILE)
+	@$(GO) run $(MAIN_FILE)
 
 # 执行测试
 test:
 	@echo "Running tests..."
-	@go test -v ./...
+	@$(GO) test -v ./...
 
 # 清理构建文件
 clean:
@@ -59,13 +65,13 @@ swagger:
 # 格式化代码
 fmt:
 	@echo "Formatting code..."
-	@go fmt ./...
+	@$(GO) fmt ./...
 	@echo "Formatting completed"
 
 # 管理依赖
 deps:
 	@echo "Tidying dependencies..."
-	@go mod tidy
+	@$(GO) mod tidy
 	@echo "Dependencies updated"
 
 # 一键完成所有准备工作并启动服务

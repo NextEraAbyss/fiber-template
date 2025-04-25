@@ -24,111 +24,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/auth/login": {
-            "post": {
-                "description": "用户登录并获取JWT令牌",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "认证"
-                ],
-                "summary": "用户登录",
-                "parameters": [
-                    {
-                        "description": "登录信息",
-                        "name": "loginRequest",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.LoginRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "登录成功响应，包含令牌",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "请求体错误",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "401": {
-                        "description": "认证失败",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "服务器错误",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/register": {
-            "post": {
-                "description": "创建新用户并获取JWT令牌",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "认证"
-                ],
-                "summary": "用户注册",
-                "parameters": [
-                    {
-                        "description": "注册信息",
-                        "name": "registerRequest",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.RegisterRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "注册成功响应，包含令牌",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "请求体错误或邮箱已被注册",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "服务器错误",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
         "/users": {
             "get": {
                 "description": "获取系统中所有用户的列表",
@@ -341,42 +236,19 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "controller.LoginRequest": {
-            "description": "用户登录请求",
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string",
-                    "example": "user@example.com"
-                },
-                "password": {
-                    "type": "string",
-                    "example": "password123"
-                }
-            }
-        },
-        "controller.RegisterRequest": {
-            "description": "用户注册请求",
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string",
-                    "example": "user@example.com"
-                },
-                "password": {
-                    "type": "string",
-                    "example": "password123"
-                },
-                "username": {
-                    "type": "string",
-                    "example": "john_doe"
-                }
-            }
-        },
         "model.User": {
             "description": "用户信息模型",
             "type": "object",
+            "required": [
+                "email",
+                "role",
+                "username"
+            ],
             "properties": {
+                "avatar": {
+                    "type": "string",
+                    "example": "https://example.com/avatar.jpg"
+                },
                 "created_at": {
                     "type": "string",
                     "example": "2024-01-01T00:00:00Z"
@@ -389,12 +261,30 @@ const docTemplate = `{
                     "type": "integer",
                     "example": 1
                 },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "last_login": {
+                    "type": "string",
+                    "example": "2024-01-01T00:00:00Z"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "user",
+                        "admin"
+                    ],
+                    "example": "user"
+                },
                 "updated_at": {
                     "type": "string",
                     "example": "2024-01-01T00:00:00Z"
                 },
                 "username": {
                     "type": "string",
+                    "maxLength": 32,
+                    "minLength": 3,
                     "example": "john_doe"
                 }
             }

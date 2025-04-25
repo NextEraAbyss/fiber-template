@@ -1,8 +1,8 @@
 package router
 
 import (
+	"github.com/NextEraAbyss/fiber-template/app/middleware"
 	"github.com/gofiber/fiber/v2"
-	"github.com/yourusername/fiber-template/app/middleware"
 )
 
 // SetupRoutes 设置应用程序的所有路由

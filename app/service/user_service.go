@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/yourusername/fiber-template/app/model"
-	"github.com/yourusername/fiber-template/config"
+	"github.com/NextEraAbyss/fiber-template/app/model"
+	"github.com/NextEraAbyss/fiber-template/config"
 )
 
 // GetAllUsers 返回所有用户

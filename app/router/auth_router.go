@@ -1,9 +1,9 @@
 package router
 
 import (
+	"github.com/NextEraAbyss/fiber-template/app/controller"
+	"github.com/NextEraAbyss/fiber-template/app/middleware"
 	"github.com/gofiber/fiber/v2"
-	"github.com/yourusername/fiber-template/app/controller"
-	"github.com/yourusername/fiber-template/app/middleware"
 )
 
 // SetupAuthRoutes 设置认证相关路由

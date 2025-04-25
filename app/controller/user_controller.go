@@ -1,12 +1,13 @@
 package controller
 
 import (
+	"github.com/NextEraAbyss/fiber-template/app/model"
+	"github.com/NextEraAbyss/fiber-template/app/service"
 	"github.com/gofiber/fiber/v2"
-	"github.com/yourusername/fiber-template/app/model"
-	"github.com/yourusername/fiber-template/app/service"
 )
 
 // GetUsers 返回所有用户
+//
 //	@Summary		获取所有用户
 //	@Description	获取系统中所有用户的列表
 //	@Tags			用户管理
@@ -31,6 +32,7 @@ func GetUsers(c *fiber.Ctx) error {
 }
 
 // GetUser 通过ID返回特定用户
+//
 //	@Summary		获取单个用户
 //	@Description	通过ID获取特定用户的详细信息
 //	@Tags			用户管理
@@ -57,6 +59,7 @@ func GetUser(c *fiber.Ctx) error {
 }
 
 // CreateUser 创建新用户
+//
 //	@Summary		创建用户
 //	@Description	创建一个新用户
 //	@Tags			用户管理
@@ -92,6 +95,7 @@ func CreateUser(c *fiber.Ctx) error {
 }
 
 // UpdateUser 通过ID更新用户
+//
 //	@Summary		更新用户
 //	@Description	通过ID更新特定用户的信息
 //	@Tags			用户管理
@@ -129,6 +133,7 @@ func UpdateUser(c *fiber.Ctx) error {
 }
 
 // DeleteUser 通过ID删除用户
+//
 //	@Summary		删除用户
 //	@Description	通过ID删除特定用户
 //	@Tags			用户管理
