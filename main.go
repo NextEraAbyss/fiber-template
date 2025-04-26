@@ -8,9 +8,6 @@ import (
 	"github.com/NextEraAbyss/fiber-template/config"
 	_ "github.com/NextEraAbyss/fiber-template/docs" // 使用正确的模块名
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
 	fiberSwagger "github.com/swaggo/fiber-swagger"
 )
 
@@ -53,10 +50,7 @@ func main() {
 		ErrorHandler: config.ErrorHandler,
 	})
 
-	// 中间件
-	app.Use(recover.New())
-	app.Use(logger.New())
-	app.Use(cors.New())
+
 
 	// Swagger路由
 	app.Get("/swagger/*", fiberSwagger.WrapHandler)

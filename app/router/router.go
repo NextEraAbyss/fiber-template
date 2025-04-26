@@ -4,6 +4,7 @@ import (
 	"github.com/NextEraAbyss/fiber-template/app/controller"
 	"github.com/NextEraAbyss/fiber-template/app/middleware"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 // SetupRoutes 设置应用程序的所有路由
@@ -12,6 +13,7 @@ func SetupRoutes(app *fiber.App) {
 	app.Static("/public", "./app/public")
 
 	// 设置全局中间件
+	app.Use(recover.New())
 	middleware.SetupSecurity(app)
 	middleware.SetupLogger(app)
 
