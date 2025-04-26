@@ -15,7 +15,7 @@ type UpdateStatistics struct {
 // Schedule 返回定时任务的执行时间，使用cron表达式
 func (t *UpdateStatistics) Schedule() string {
 	// 每30秒执行一次（示例）
-	return "*/30. * * * * *"
+	return "*/30 * * * * *"
 }
 
 // Task 定时任务的执行逻辑
