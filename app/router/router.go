@@ -4,7 +4,6 @@ import (
 	"github.com/NextEraAbyss/fiber-template/app/controller"
 	"github.com/NextEraAbyss/fiber-template/app/middleware"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 // SetupRoutes 设置应用程序的所有路由
@@ -13,9 +12,7 @@ func SetupRoutes(app *fiber.App) {
 	app.Static("/public", "./app/public")
 
 	// 设置全局中间件
-	app.Use(recover.New())
-	middleware.SetupSecurity(app)
-	middleware.SetupLogger(app)
+	middleware.Setup(app)
 
 	// API 分组
 	api := app.Group("/api")
@@ -32,11 +29,6 @@ func SetupRoutes(app *fiber.App) {
 
 	// 初始化控制器
 	userController := controller.NewUserController()
-
-	// 用户路由 - 需要认证
-	// users := v1.Group("/users", middleware.Protected())
-	// user.Get("/", userController.GetUsers)    // 获取用户列表
-	// user.Get("/:id", userController.GetUser) // 获取单个用户
 
 	// 用户路由
 	v1.Get("/users", userController.GetUsers)    // 获取用户列表

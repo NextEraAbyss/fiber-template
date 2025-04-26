@@ -6,7 +6,7 @@ import (
 	"github.com/NextEraAbyss/fiber-template/app/model"
 	"github.com/NextEraAbyss/fiber-template/app/router"
 	"github.com/NextEraAbyss/fiber-template/config"
-	_ "github.com/NextEraAbyss/fiber-template/docs" // 使用正确的模块名
+	_ "github.com/NextEraAbyss/fiber-template/docs" // swagger文档
 	"github.com/gofiber/fiber/v2"
 	fiberSwagger "github.com/swaggo/fiber-swagger"
 )
@@ -30,6 +30,27 @@ func main() {
 	// 加载配置
 	cfg := config.Load()
 
+	// 初始化应用
+	initApp(cfg)
+
+	// 创建Fiber实例
+	app := fiber.New(fiber.Config{
+		AppName:      cfg.App.Name,
+		ErrorHandler: config.ErrorHandler,
+	})
+
+	// Swagger路由
+	app.Get("/swagger/*", fiberSwagger.WrapHandler)
+
+	// 设置路由
+	router.SetupRoutes(app)
+
+	// 启动服务器
+	log.Fatal(app.Listen(":" + cfg.App.Port))
+}
+
+// initApp 初始化应用程序
+func initApp(cfg *config.Config) {
 	// 初始化数据库连接
 	config.InitDB(cfg)
 
@@ -43,21 +64,4 @@ func main() {
 	// 初始化并启动定时任务
 	config.InitTasks()
 	config.BeginTasks()
-
-	// 创建新的 Fiber 实例
-	app := fiber.New(fiber.Config{
-		AppName:      cfg.App.Name,
-		ErrorHandler: config.ErrorHandler,
-	})
-
-
-
-	// Swagger路由
-	app.Get("/swagger/*", fiberSwagger.WrapHandler)
-
-	// 设置路由
-	router.SetupRoutes(app)
-
-	// 启动服务器
-	log.Fatal(app.Listen(":" + cfg.App.Port))
 }
